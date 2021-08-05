@@ -9,9 +9,11 @@
  import Vue from 'vue';
  import App from './App.vue';
  import VueAxios from 'vue-axios';
+ import Vuex from 'vuex';
  import VueRouter from 'vue-router';
  import axios from 'axios';
  import { routes } from './routes';
+ import StoreData from './store';
 
  /**
   * Next, we will create a fresh Vue application instance and attach it to
@@ -21,6 +23,9 @@
 
  Vue.use(VueRouter);
  Vue.use(VueAxios, axios);
+ Vue.use(Vuex);
+
+ const store = new Vuex.Store(StoreData);
 
  const router = new VueRouter({
      mode: 'history',
@@ -30,6 +35,7 @@
  const app = new Vue({
      el: '#app',
      router: router,
+     store,
      render: h => h(App),
  });
 
