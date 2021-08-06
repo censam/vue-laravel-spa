@@ -15,6 +15,7 @@
  import { routes } from './routes';
  import StoreData from './store';
 
+
  /**
   * Next, we will create a fresh Vue application instance and attach it to
   * the page. Then, you may begin adding components to this application
@@ -25,11 +26,33 @@
  Vue.use(VueAxios, axios);
  Vue.use(Vuex);
 
+
+
  const store = new Vuex.Store(StoreData);
 
  const router = new VueRouter({
      mode: 'history',
      routes: routes
+ });
+
+
+
+ router.beforeEach((to,from,next)=>{
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+
+    const currentUser = store.state.currentUser;
+    console.log('requiresAuth',currentUser);
+
+    if(requiresAuth && !currentUser){
+       next('/login');
+    }else if(to.path == '/login' && currentUser){
+        next('/');
+    }else{
+        next();
+
+    }
+
  });
 
  const app = new Vue({

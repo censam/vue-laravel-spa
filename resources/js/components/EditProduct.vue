@@ -9,10 +9,10 @@
                         <input type="text" class="form-control" v-model="product.name">
                     </div>
                     <div class="form-group">
-                        <label>Detail</label>
+                        <label>Detaiderwerl</label>
                         <input type="text" class="form-control" v-model="product.detail">
                     </div>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-primary">Updatedgrt</button>
                 </form>
             </div>
         </div>
