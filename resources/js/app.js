@@ -14,7 +14,7 @@
  import axios from 'axios';
  import { routes } from './routes';
  import StoreData from './store';
-
+ import {initialize} from './helpers/general';
 
  /**
   * Next, we will create a fresh Vue application instance and attach it to
@@ -26,34 +26,16 @@
  Vue.use(VueAxios, axios);
  Vue.use(Vuex);
 
-
-
  const store = new Vuex.Store(StoreData);
+
+
 
  const router = new VueRouter({
      mode: 'history',
      routes: routes
  });
 
-
-
- router.beforeEach((to,from,next)=>{
-    const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-
-
-    const currentUser = store.state.currentUser;
-    console.log('requiresAuth',currentUser);
-
-    if(requiresAuth && !currentUser){
-       next('/login');
-    }else if(to.path == '/login' && currentUser){
-        next('/');
-    }else{
-        next();
-
-    }
-
- });
+ initialize(store,router);
 
  const app = new Vue({
      el: '#app',

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,5 +36,14 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);
+
+});
+
+
+
+Route::group(['middleware' => 'jwt.auth'], function ($router) {
+    Route::get('/customers', [CustomerController::class, 'all']);
+    Route::post('/customers/{id}', [CustomerController::class, 'get']);
+    Route::post('/customers/new', [CustomerController::class, 'new']);
 });
 

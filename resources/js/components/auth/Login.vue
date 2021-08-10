@@ -18,6 +18,10 @@
                     <div class="form-group row">
                         <input type="submit"  class="form-control" value="Login">
                     </div>
+
+                    <div class="form-group row" v-if="authError">
+                       <span class="error-msg">{{authError}}</span>
+                    </div>
                 </form>
             </div>
         </div>
@@ -49,13 +53,22 @@ methods: {
         }).catch((error)=>{
             this.$store.commit('loginFailed',error);
         });
-
-
     }
 },
+computed:{
+    authError(){
+        return this.$store.getters.authError;
+    }
+}
 }
 </script>
 
 <style scoped>
-
+.error-msg{
+    padding: 5px;
+    background-color: rgb(211, 202, 199);
+    color: red;
+    width: 100%;
+    font-weight: 900;
+}
 </style>
